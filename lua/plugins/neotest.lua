@@ -20,7 +20,12 @@ return {
       require("neotest").setup({
         adapters = {
           require("neotest-jest")({
-            jestCommand = "npx jest",
+            jestCommand = function(path)
+              if string.find(path, "e2e") then
+                return "npx jest --config test/jest-e2e.json"
+              end
+              return "npx jest"
+            end,
             cwd = function() return vim.fn.getcwd() end,
           }),
         },
