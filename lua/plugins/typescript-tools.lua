@@ -13,5 +13,8 @@ return {
     "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     opts = {},
+    keys = {
+      { "gd", "<cmd>TSToolsGoToSourceDefinition<cr>", desc = "Go to Source Definition" },
+    },
   },
 }
