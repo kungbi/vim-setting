@@ -1,0 +1,62 @@
+return {
+  {
+    "Mofiqul/dracula.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      colors = {
+        bg = "#22212C",
+        fg = "#F8F8F2",
+        selection = "#454158",
+        comment = "#7970A9",
+        red = "#FF9580",
+        orange = "#FFCA80",
+        yellow = "#FFFF80",
+        green = "#8AFF80",
+        purple = "#9580FF",
+        cyan = "#80FFEA",
+        pink = "#FF80BF",
+        bright_red = "#FFAA99",
+        bright_green = "#A2FF99",
+        bright_yellow = "#FFFF99",
+        bright_blue = "#AA99FF",
+        bright_magenta = "#FF99CC",
+        bright_cyan = "#99FFEE",
+        bright_white = "#FFFFFF",
+        menu = "#21222C",
+        visual = "#3E4452",
+        gutter_fg = "#4B5263",
+        nontext = "#3B4048",
+        white = "#ABB2BF",
+        black = "#191A21",
+      },
+      show_end_of_buffer = true,
+      transparent_bg = true,
+      lualine_bg_color = "#44475a",
+      italic_comment = true,
+      overrides = {
+        Normal = { bg = "NONE" },
+        NormalFloat = { bg = "NONE" },
+        SignColumn = { bg = "NONE" },
+        LineNr = { bg = "NONE" },
+        CursorLineNr = { bg = "NONE" },
+        FloatBorder = { bg = "NONE" },
+        WinSeparator = { fg = "#3E4452", bg = "NONE" },
+        DiffAdd = { bg = "#2a4a2a", fg = "NONE" },
+        DiffChange = { bg = "#2a3a4a", fg = "NONE" },
+        DiffDelete = { bg = "#4a2a2a", fg = "NONE" },
+        DiffText = { bg = "#3a5a3a", fg = "NONE" },
+      },
+    },
+    config = function(_, opts)
+      require("dracula").setup(opts)
+    end,
+  },
+
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "dracula",
+    },
+  },
+}
