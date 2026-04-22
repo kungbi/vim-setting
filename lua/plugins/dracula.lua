@@ -46,7 +46,7 @@ return {
         DiffChange = { bg = "#2a3a4a", fg = "NONE" },
         DiffDelete = { bg = "#4a2a2a", fg = "NONE" },
         DiffText = { bg = "#3a5a3a", fg = "NONE" },
-        SnacksPickerGitIgnored = { fg = "#8a95ba" },
+        SnacksPickerPathIgnored = { fg = "#8c8c8c" },
       },
     },
     config = function(_, opts)

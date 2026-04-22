@@ -28,6 +28,14 @@ return {
             hidden = true,
             ignored = true,
             layout = { layout = { position = "left", width = 35 } },
+            win = {
+              list = {
+                keys = {
+                  [">"] = function() vim.api.nvim_win_set_width(0, vim.api.nvim_win_get_width(0) + 5) end,
+                  ["<lt>"] = function() vim.api.nvim_win_set_width(0, vim.api.nvim_win_get_width(0) - 5) end,
+                },
+              },
+            },
           },
           files = {
             hidden = true,
