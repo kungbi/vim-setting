@@ -1,8 +1,11 @@
 return {
   {
     "folke/snacks.nvim",
+    keys = {
+      { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
+    },
     opts = {
-      explorer = { enabled = true, replace_netrw = false },
+      explorer = { enabled = true, replace_netrw = true },
       picker = {
         layout = {
           layout = {
@@ -21,6 +24,9 @@ return {
           },
         },
         sources = {
+          explorer = {
+            layout = { layout = { position = "left", width = 35 } },
+          },
           files = {
             hidden = true,
             ignored = true,
