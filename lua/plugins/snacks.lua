@@ -25,6 +25,7 @@ return {
         },
         sources = {
           explorer = {
+            hidden = true,
             layout = { layout = { position = "left", width = 35 } },
           },
           files = {
