@@ -47,6 +47,9 @@ return {
         DiffDelete = { bg = "#4a2a2a", fg = "NONE" },
         DiffText = { bg = "#3a5a3a", fg = "NONE" },
         SnacksPickerPathIgnored = { fg = "#8c8c8c" },
+        GitSignsAdd = { fg = "#8AFF80" },
+        GitSignsChange = { fg = "#FFCA80" },
+        GitSignsDelete = { fg = "#FF9580" },
       },
     },
     config = function(_, opts)
