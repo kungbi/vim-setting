@@ -23,6 +23,13 @@ return {
             { win = "preview", title = "{preview}", border = true, width = 0.65 },
           },
         },
+        win = {
+          list = {
+            keys = {
+              ["<C-h>"] = false,
+            },
+          },
+        },
         sources = {
           explorer = {
             hidden = true,
