@@ -52,6 +52,7 @@ return {
           grep = {
             hidden = true,
             ignored = true,
+            args = { "--glob", "!dist" },
           },
         },
       },
