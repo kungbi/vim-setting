@@ -1,6 +1,7 @@
 return {
   {
     "3rd/image.nvim",
+    enabled = false,
     build = "luarocks --local --lua-version=5.1 install magick",
     opts = {
       backend = "kitty",

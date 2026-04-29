@@ -3,3 +3,5 @@
 -- Add any additional keymaps here
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+vim.keymap.set("n", "<leader>fy", function() vim.fn.setreg("+", vim.fn.expand("%:t")) end, { desc = "Copy filename" })
+vim.keymap.set("n", "<leader>fY", function() vim.fn.setreg("+", vim.fn.expand("%:p")) end, { desc = "Copy absolute path" })
