@@ -1,6 +1,8 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+vim.keymap.set("n", "<M-j>", ":m+1<CR>==", { desc = "Move line down" })
+vim.keymap.set("n", "<M-k>", ":m-2<CR>==", { desc = "Move line up" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 vim.keymap.set("n", "<leader>fy", function() vim.fn.setreg("+", vim.fn.expand("%:t")) end, { desc = "Copy filename" })
