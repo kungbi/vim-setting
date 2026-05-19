@@ -41,3 +41,38 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     vim.fn.system(vim.fn.expand("~/bin/im-select") .. " com.apple.keylayout.ABC")
   end,
 })
+
+-- Keep .env files highlighted as shell, but do not run bashls on them.
+-- bashls/shellcheck treats dotenv variables like DATABASE_URL as unused shell
+-- variables and reports SC2034, even though apps consume them externally.
+local env_lsp_group = vim.api.nvim_create_augroup("dotenv_disable_bashls", { clear = true })
+
+local function is_dotenv_file(bufnr)
+  local name = vim.api.nvim_buf_get_name(bufnr)
+  local base = vim.fn.fnamemodify(name, ":t")
+  return base == ".env" or base:match("^%.env%.") ~= nil
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = env_lsp_group,
+  pattern = "sh",
+  callback = function(args)
+    if is_dotenv_file(args.buf) then
+      vim.bo[args.buf].syntax = "sh"
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = env_lsp_group,
+  callback = function(args)
+    if not is_dotenv_file(args.buf) then
+      return
+    end
+
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client.name == "bashls" then
+      vim.lsp.buf_detach_client(args.buf, client.id)
+    end
+  end,
+})
