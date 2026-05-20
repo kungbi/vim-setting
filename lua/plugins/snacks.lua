@@ -6,6 +6,23 @@ return {
     },
     opts = {
       explorer = { enabled = true, replace_netrw = true },
+      indent = {
+        enabled = true,
+        indent = {
+          hl = {
+            "SnacksIndent1",
+            "SnacksIndent2",
+            "SnacksIndent3",
+            "SnacksIndent4",
+            "SnacksIndent5",
+            "SnacksIndent6",
+            "SnacksIndent7",
+            "SnacksIndent8",
+          },
+        },
+        scope = { enabled = true },
+        chunk = { enabled = false },
+      },
       picker = {
         layout = {
           layout = {
