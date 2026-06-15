@@ -3,6 +3,12 @@ return {
   opts = {
     servers = {
       bashls = {
+        -- dotenv 변수는 외부에서 소비되므로 shellcheck의 "미사용 변수"(SC2034) 오탐을 끈다.
+        settings = {
+          bashIde = {
+            shellcheckArguments = "--exclude=SC2034",
+          },
+        },
         on_attach = function(client, bufnr)
           local name = vim.api.nvim_buf_get_name(bufnr)
           local base = vim.fn.fnamemodify(name, ":t")
