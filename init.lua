@@ -2,11 +2,13 @@
 require("config.lazy")
 
 local function ensure_ts_bridge_daemon()
-  print(vim.inspect(vim.g.ts_bridge_daemon_started))
-  if vim.g.ts_bridge_daemon_started then
+  -- Probe the port instead of a session flag: the daemon exits on idle-ttl,
+  -- so it must be restartable within the same nvim session.
+  local ok, chan = pcall(vim.fn.sockconnect, "tcp", "127.0.0.1:7007", { rpc = false })
+  if ok and type(chan) == "number" and chan > 0 then
+    vim.fn.chanclose(chan)
     return
   end
-  vim.g.ts_bridge_daemon_started = true
   vim.fn.jobstart({
     "ts-bridge",
     "daemon",
