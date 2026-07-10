@@ -1,3 +1,7 @@
+local function javascript_formatter(bufnr)
+  return { vim.b[bufnr].javascript_formatter == "biome" and "biome" or "prettier" }
+end
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -12,10 +16,10 @@ return {
     opts = {
       formatters_by_ft = {
         prisma = { "prettier" },
-        typescript = { "prettier" },
-        typescriptreact = { "prettier" },
-        javascript = { "prettier" },
-        javascriptreact = { "prettier" },
+        typescript = javascript_formatter,
+        typescriptreact = javascript_formatter,
+        javascript = javascript_formatter,
+        javascriptreact = javascript_formatter,
       },
     },
   },
