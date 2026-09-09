@@ -1,10 +1,21 @@
 return {
-  "neovim/nvim-lspconfig",
-  opts = {
-    servers = {
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
       -- Kotlin 파일의 탐색, 진단, 정의 이동 등을 kotlin-language-server로 제공한다.
       -- LazyVim이 Mason을 통해 서버 설치도 관리한다.
-      kotlin_language_server = {},
+      kotlin_language_server = {
+        init_options = {
+          storagePath = vim.fn.stdpath("state") .. "/kotlin-language-server",
+        },
+        cmd = {
+          "/usr/bin/env",
+          "JAVA_HOME=/opt/homebrew/opt/openjdk@21",
+          "PATH=/opt/homebrew/opt/openjdk@21/bin:" .. vim.env.PATH,
+          vim.fn.stdpath("data") .. "/mason/bin/kotlin-language-server",
+        },
+      },
       bashls = {
         -- dotenv 변수는 외부에서 소비되므로 shellcheck의 "미사용 변수"(SC2034) 오탐을 끈다.
         settings = {
@@ -27,6 +38,7 @@ return {
           { "gr", false },
           { "grr", function() Snacks.picker.lsp_references() end, desc = "References" },
         },
+      },
       },
     },
   },
