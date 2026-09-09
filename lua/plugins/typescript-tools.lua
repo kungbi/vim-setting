@@ -1,5 +1,17 @@
+local ts7 = vim.fn.exepath("tsc")
+
+if ts7 == "" then
+  vim.notify("TypeScript 7 LSP requires the TypeScript 7 `tsc` executable", vim.log.levels.WARN)
+else
+  vim.lsp.config("ts7", {
+    cmd = { ts7, "--lsp", "--stdio" },
+    filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+    root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+  })
+end
+
 return {
-  -- Disable LazyVim's default ts_ls setup
+  -- TypeScript 7 provides its own standard-LSP server; keep LazyVim's ts_ls disabled.
   {
     "neovim/nvim-lspconfig",
     opts = {
