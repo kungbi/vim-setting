@@ -3,42 +3,42 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-      -- Kotlin 파일의 탐색, 진단, 정의 이동 등을 kotlin-language-server로 제공한다.
-      -- LazyVim이 Mason을 통해 서버 설치도 관리한다.
-      kotlin_language_server = {
-        init_options = {
-          storagePath = vim.fn.stdpath("state") .. "/kotlin-language-server",
-        },
-        cmd = {
-          "/usr/bin/env",
-          "JAVA_HOME=/opt/homebrew/opt/openjdk@21",
-          "PATH=/opt/homebrew/opt/openjdk@21/bin:" .. vim.env.PATH,
-          vim.fn.stdpath("data") .. "/mason/bin/kotlin-language-server",
-        },
-      },
-      bashls = {
-        -- dotenv 변수는 외부에서 소비되므로 shellcheck의 "미사용 변수"(SC2034) 오탐을 끈다.
-        settings = {
-          bashIde = {
-            shellcheckArguments = "--exclude=SC2034",
+        -- Kotlin 파일의 탐색, 진단, 정의 이동 등을 kotlin-language-server로 제공한다.
+        -- LazyVim이 Mason을 통해 서버 설치도 관리한다.
+        kotlin_language_server = {
+          init_options = {
+            storagePath = vim.fn.stdpath("state") .. "/kotlin-language-server",
+          },
+          cmd = {
+            "/usr/bin/env",
+            "JAVA_HOME=/opt/homebrew/opt/openjdk@21",
+            "PATH=/opt/homebrew/opt/openjdk@21/bin:" .. vim.env.PATH,
+            vim.fn.stdpath("data") .. "/mason/bin/kotlin-language-server",
           },
         },
-        on_attach = function(client, bufnr)
-          local name = vim.api.nvim_buf_get_name(bufnr)
-          local base = vim.fn.fnamemodify(name, ":t")
-          if base == ".env" or base:match("^%.env%.") then
-            vim.schedule(function()
-              vim.lsp.buf_detach_client(bufnr, client.id)
-            end)
-          end
-        end,
-      },
-      ["*"] = {
-        keys = {
-          { "gr", false },
-          { "grr", function() Snacks.picker.lsp_references() end, desc = "References" },
+        bashls = {
+          -- dotenv 변수는 외부에서 소비되므로 shellcheck의 "미사용 변수"(SC2034) 오탐을 끈다.
+          settings = {
+            bashIde = {
+              shellcheckArguments = "--exclude=SC2034",
+            },
+          },
+          -- Skip dotenv before starting/attaching: never send its text to bashls.
+          root_dir = function(bufnr, on_dir)
+            local name = vim.api.nvim_buf_get_name(bufnr)
+            local base = vim.fn.fnamemodify(name, ":t")
+            if base == ".env" or base:match("^%.env%.") then
+              return
+            end
+            on_dir(vim.fs.root(bufnr, { ".git" }))
+          end,
         },
-      },
+        ["*"] = {
+          keys = {
+            { "gr", false },
+            { "grr", function() Snacks.picker.lsp_references() end, desc = "References" },
+          },
+        },
       },
     },
   },

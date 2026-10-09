@@ -62,17 +62,3 @@ vim.api.nvim_create_autocmd("FileType", {
     end
   end,
 })
-
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = env_lsp_group,
-  callback = function(args)
-    if not is_dotenv_file(args.buf) then
-      return
-    end
-
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client and client.name == "bashls" then
-      vim.lsp.buf_detach_client(args.buf, client.id)
-    end
-  end,
-})
